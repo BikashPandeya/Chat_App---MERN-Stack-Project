@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         type : String ,
         default : "",
     }
-}, {timestamp : true})
+}, {timestamps : true}) // Corrected from 'timestamp' to 'timestamps'
 
 const User = mongoose.model("User" , userSchema)
 
