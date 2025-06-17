@@ -1,22 +1,20 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    email : {
-        type : String ,
+    senderId : {
+        type : mongooose.Schema.Types.ObjectId, // Corrected from 'mongoose.Schema.Types.ObjectId' to 'mongoose.Schema.Types.ObjectId',
+        ref  : "User" ,// Corrected from 'User' to string "User" for consistency
         required : true ,
-        unique : true ,
     } , 
-    fullName  : {
-        type : String ,
+    receiverId : {
+        type : mongoose.Schema.Types.ObjectId, // Corrected from 'mongoose.Schema.Types.ObjectId' to 'mongoose.Schema.Types.ObjectId',
+        ref : User , 
         required  : true ,
-    }, password : {
+    }, text : {
         type : String ,
-        required : true ,
-        minlength : 6
     },
-    profilePic : {
+    image : {
         type : String ,
-        default : "",
     }
 }, {timestamps : true}) // Corrected from 'timestamp' to 'timestamps'
 
