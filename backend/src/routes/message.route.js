@@ -1,9 +1,12 @@
 import express from 'express' ;
 import {protectRoute} from '../middleware/auth.middleware.js' ;
-import {getUsersForSideBar} from '../controllers/message.controller.js' ;
+import {getUsersForSideBar , getMessages , sendMessage} from '../controllers/message.controller.js' ;
 
 const router = express.Router() ;
 
 router.get("/users" , protectRoute , getUsersForSideBar)
+router.get("/:id" , protectRoute , getMessages) ; // This route can be used to get users for the sidebar
+router.get("/messages/:id" , protectRoute , sendMessage) ; // This route can be used to get messages between two users
+
 
 export default router ;

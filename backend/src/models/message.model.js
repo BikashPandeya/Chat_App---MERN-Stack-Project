@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import User from "./user.model.js"; // Corrected import statement to match the file structure
 
-const userSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
     senderId : {
-        type : mongooose.Schema.Types.ObjectId, // Corrected from 'mongoose.Schema.Types.ObjectId' to 'mongoose.Schema.Types.ObjectId',
+        type : mongoose.Schema.Types.ObjectId, // Corrected from 'mongoose.Schema.Types.ObjectId' to 'mongoose.Schema.Types.ObjectId',
         ref  : "User" ,// Corrected from 'User' to string "User" for consistency
         required : true ,
     } , 
@@ -18,6 +19,7 @@ const userSchema = new mongoose.Schema({
     }
 }, {timestamps : true}) // Corrected from 'timestamp' to 'timestamps'
 
-const User = mongoose.model("User" , userSchema)
+const 
+Message = mongoose.model("Message" , messageSchema)
 
-export default User
+export default Message
