@@ -16,9 +16,15 @@ app.use(express.json())  //Without this middleware, req.body would be undefined 
 // The express.json() middleware in app.use() is used to parse incoming requests with JSON payloads. When you include this middleware in your Express application, it allows the server to automatically parse the JSON data in the body of incoming requests and make it available in req.body.
 
 app.use(cookieParser()) // Add cookie-parser middleware
+app.use(cors({
+    origin : "http://localhost:5173", // Replace with your frontend URL
+    credentials : true, // Allow credentials (cookies, authorization headers, etc.) to be sent
+}))
+
 
 app.use("/api/auth" , authRoutes)
 app.use("/api/message" , messageRoutes)
+
 
 app.listen(PORT , () => {
     console.log("Server is running on PORT :" , PORT)

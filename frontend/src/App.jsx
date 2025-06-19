@@ -14,6 +14,8 @@ const App = () => {
   useEffect(() => {
     checkAuth();
   }, [checkAuth])
+
+  console.log("Auth User:", authUser);
   
   return (
     <div>
