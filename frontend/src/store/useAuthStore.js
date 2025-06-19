@@ -1,5 +1,7 @@
 import {create} from 'zustand';
 import { axiosInstance } from '../lib/axios';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 export const useAuthStore = create((set) => ({
     authUser: null,
@@ -30,14 +32,24 @@ export const useAuthStore = create((set) => ({
     signup : async (data) => {
         set({isSigningUp: true});
         try {
-            const res = await axiosInstance.post('/auth/signup', formData);
-            set({
-                authUser: res.data,
-                isSigningUp: false
-            });
+            const res = await axiosInstance.post('/auth/signup', data);
+            set({authUser: res.data});
+            toast.success("Account created successfully!");
         } catch (error) {
-            console.log("Error in signup:", error);
+            console.log("Error in signup in useAuthStore:", error);
+            toast.error(error.response.data.message || "Something went wrong during signup");
+        } finally{
             set({isSigningUp: false});
         }
     },
+    logout : async()=>{
+        try {
+            await axiosInstance.post('/auth/logout');
+            set({authUser: null});
+            toast.success("Logged out successfully!");
+        } catch (error) {
+            toast.error(error.response.data.message || "Something went wrong during logout");
+            console.log("Error in logout in useAuthStore:", error);
+        }
+    }
 }))
