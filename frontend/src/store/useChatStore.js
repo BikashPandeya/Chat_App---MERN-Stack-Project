@@ -13,7 +13,7 @@ export const useChatStore = create((set) => ({
         set({isUsersLoading: true});
         try {
             const res = await axiosInstance.get('/messages/users');
-            set({users: res.data});
+            set({users: res.data.filteredUsers}); // <-- FIXED: use res.data.filteredUsers
         } catch (error) {
             console.log("Error in fetching users in useChatStore:", error);
             toast.error(error.response.data.message || "Something went wrong while fetching users");
