@@ -2,6 +2,7 @@ import { useChatStore } from "../store/useChatStore"
 import { useEffect } from "react"
 import ChatHeader from "./ChatHeader"
 import MessageInput from "./MessageInput"
+import MessageSkeleton from "./skeletons/MessageSkeleton"
 
 const ChatContainer = () => {
   const {messages , getMessages , isMessageLoading ,selectedUser}  = useChatStore()
