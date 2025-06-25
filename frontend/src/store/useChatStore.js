@@ -26,7 +26,7 @@ export const useChatStore = create((set , get) => ({
     getMessages : async (userId) => {
         set({isMessagesLoading: true});
         try {
-            const res = await axiosInstance.get(`/messages/send/${userId}`);
+            const res = await axiosInstance.get(`/messages/${userId}`);
             set({messages: res.data});
         } catch (error) {
             console.log("Error in fetching messages in useChatStore:", error);
@@ -40,9 +40,11 @@ export const useChatStore = create((set , get) => ({
         const {selectedUser, messages} = get();
         try {
            const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
-        set({messages: [...messages, res.data]});
+           set({messages: [...messages, res.data]});
         } catch (error) {
-            toast.error(error.response.data.message || "Something went wrong while sending message");
+            console.log(error)
+            toast.error(error.response?.data?.message || "Something went wrong while sending message");
+            throw error; // <-- Add this line
         }
     },
     setSelectedUser: (userId) => {

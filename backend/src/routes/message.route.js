@@ -6,7 +6,7 @@ const router = express.Router() ;
 
 router.get("/users" , protectRoute , getUsersForSideBar)
 router.get("/:id" , protectRoute , getMessages) ; // This route can be used to get users for the sidebar
-router.get("/send/:id" , protectRoute , sendMessage) ; // This route can be used to get messages between two users
+router.post("/send/:id" , protectRoute , sendMessage) ; // This route can be used to get messages between two users
 
 
 export default router ;
