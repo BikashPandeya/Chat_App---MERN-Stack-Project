@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { Camera, Mail, User } from "lucide-react";
+import {  User } from "lucide-react";
 import { useChatStore } from "../store/useChatStore";
 
 const ChattersProfilePage = () => {
