@@ -5,7 +5,6 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { formatMessageTime } from "../lib/utils";
-import ChattersProfilePage from "../pages/ChattersProfilePage"; // Assuming you have a ProfilePage component
 import { useNavigate  , Link} from "react-router-dom"; // Import useNavigate for navigation
 
 const ChatContainer = () => {
@@ -38,8 +37,8 @@ const ChatContainer = () => {
             } `}
           >
             {authUser && (
-            <Link to={"/chattersprofile"} className = "chat-image avatar">
-              <div className="size-10 rounded-full border">
+
+              <div className="size-10 rounded-full border chat-image avatar">
                 <img
                   src={
                     message.senderId === authUser._id
@@ -48,10 +47,10 @@ const ChatContainer = () => {
                   }
                   alt="Profile Pic"
                   
-                  className="cursor-pointer"
+                  className="size-12 object-cover rounded-full"
                 />
               </div>
-            </Link>)}
+            )}
             {/* <div className="chat-image avatar"onClick={navigate("/chattersprofile")} >
             </div> */}
             <div className="chat-header mb-1">

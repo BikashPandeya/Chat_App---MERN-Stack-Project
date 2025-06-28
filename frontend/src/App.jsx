@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import { useThemeStore } from "./store/useThemeStore.js";
-import ChattersProfilePage from "./pages/ChattersProfilePage.jsx";
+
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -58,10 +58,7 @@ const App = () => {
           path="/profile"
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
-        <Route
-          path="/chattersprofile"
-          element={authUser ? <ChattersProfilePage /> : <Navigate to="/login" />}
-        />
+      
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
     </div>
