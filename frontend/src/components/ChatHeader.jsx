@@ -11,9 +11,16 @@ const ChatHeader = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {/* Avatar */}
-          <div className="avatar">
-            <div className="size-10 rounded-full relative">
+          <div className="avatar" style={{ overflow: "visible" }}>
+            <div className="size-10 rounded-full relative" style={{ overflow: "visible" }}>
               <img src={selectedUser.profilePic || "/avatar.png"} alt={selectedUser.fullName} />
+              {onlineUsers.includes(selectedUser._id) && (
+                <span
+                  className="absolute bottom-0 right-0 size-3 bg-green-500 
+                  rounded-full ring-2 ring-base-100 pointer-events-none"
+                  style={{ transform: "translate(-18%, 2%);" }}
+                />
+              )}
             </div>
           </div>
 
