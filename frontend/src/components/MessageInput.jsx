@@ -7,24 +7,29 @@ const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { sendMessage } = useChatStore();
+  const textInputRef = useRef(null); // <-- Add this line
+  const { sendMessage, imageSending } = useChatStore();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if(!file.type.startsWith("image/")) {
+    if (!file.type.startsWith("image")) {
       toast.error("Please select a valid image file.");
       return;
     }
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
-    }
+      // Focus the text input after selecting an image
+      setTimeout(() => {
+        textInputRef.current?.focus();
+      }, 0);
+    };
     reader.readAsDataURL(file);
   };
 
   const removeImage = () => {
     setImagePreview(null);
-    if(fileInputRef.current) {
+    if (fileInputRef.current) {
       fileInputRef.current.value = null; // Clear the file input
     }
   };
@@ -55,11 +60,15 @@ const MessageInput = () => {
   };
   return (
     <div className="p-4 w-full">
-
-
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
+            {/* Loader centered over the image */}
+            {imageSending && (
+              <span className="absolute inset-0 flex items-center justify-center">
+                <span className="loading loading-spinner loading-lg text-primary" />
+              </span>
+            )}
             <img
               src={imagePreview}
               alt="Preview"
@@ -77,11 +86,11 @@ const MessageInput = () => {
         </div>
       )}
 
-
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
         <div className="flex-1 flex gap-2">
           <input
             type="text"
+            ref={textInputRef} // <-- Add this line
             className="w-full input input-bordered rounded-lg input-sm sm:input-md"
             placeholder="Type a message..."
             value={text}
@@ -93,12 +102,20 @@ const MessageInput = () => {
             className="hidden"
             ref={fileInputRef}
             onChange={handleImageChange}
+            tabIndex={-1}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                textInputRef.current?.focus();
+              }
+            }}
           />
 
           <button
             type="button"
+            tabIndex={-1} // Prevent button from being focused after click
             className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+           ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={20} />

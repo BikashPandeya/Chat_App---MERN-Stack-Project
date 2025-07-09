@@ -11,6 +11,7 @@ export const useChatStore = create((set , get) => ({
     selectedUser : null ,
     isUsersLoading : false ,
     isMessagesLoading : false,
+    imageSending : false,
 
     getUsers : async () => {
         set({isUsersLoading: true});
@@ -41,13 +42,17 @@ export const useChatStore = create((set , get) => ({
 
     sendMessage : async(messageData) => {
         const {selectedUser, messages} = get();
+
         try {
+            set({imageSending: true}); // Reset imageSending state after sending message
            const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
            set({messages: [...messages, res.data.newMessage]});
         } catch (error) {
             console.log(error)
             toast.error(error.response?.data?.message || "Something went wrong while sending message");
             throw error; // <-- Add this line
+        }finally{
+            set({imageSending: false}); // Reset imageSending state after sending message
         }
     },
     subscribeToMessages: () => {
