@@ -9,11 +9,15 @@ import { useNavigate  , Link} from "react-router-dom"; // Import useNavigate for
 
 const ChatContainer = () => {
   const navigate = useNavigate(); // Initialize useNavigate for navigation
-  const { messages, getMessages, isMessageLoading, selectedUser } =
+  const { messages, getMessages, isMessageLoading, selectedUser ,subscribeToMessages ,unsubscribeFromMessages} =
     useChatStore();
   const { authUser } = useAuthStore();
   useEffect(() => {
+    subscribeToMessages();
     getMessages(selectedUser._id);
+
+
+    return() => unsubscribeFromMessages(); // Unsubscribe from messages when component unmounts
   }, [selectedUser._id, getMessages]);
 
   if (isMessageLoading)

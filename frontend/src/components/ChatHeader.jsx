@@ -18,7 +18,7 @@ const ChatHeader = () => {
                 <span
                   className="absolute bottom-0 right-0 size-3 bg-green-500 
                   rounded-full ring-2 ring-base-100 pointer-events-none"
-                  style={{ transform: "translate(-18%, 2%);" }}
+                  style={{ transform: "translate(-18%, 2%)" }}
                 />
               )}
             </div>
