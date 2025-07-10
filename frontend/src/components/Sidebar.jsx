@@ -13,10 +13,11 @@ const Sidebar = () => {
   useEffect(() => {
     getUsers();
   }, [getUsers]);
-
+  const reversed = users.slice().reverse(); // Reverse the users array for display
   const filteredUsers = showOnlineOnly
     ? users.filter((user) => onlineUsers.includes(user._id))
-    : users;
+    : reversed;
+ 
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -41,7 +42,7 @@ const Sidebar = () => {
 
       <aside
         className={`
-          h-full w-64 max-w-[80vw] border-r border-base-300 flex flex-col transition-all duration-200
+          h-full lg:h-screen w-64 max-w-[80vw] border-r border-base-300 flex flex-col transition-all duration-200
           bg-base-100 z-50 fixed top-0 left-0
           ${open ? "translate-x-0" : "-translate-x-full"}
           lg:static lg:translate-x-0 lg:w-72
@@ -82,7 +83,7 @@ const Sidebar = () => {
           </span>
         </div>
 
-        <div className="overflow-y-auto w-full py-3 flex-1">
+        <div className="overflow-y-auto w-full py-3 pb-6 flex-1">
           {filteredUsers.map((user) => (
             <button
               key={user._id}
@@ -114,10 +115,8 @@ const Sidebar = () => {
                   />
                 )}
               </div>
-              {/* Name (full name) right after profile pic */}
-              <span className="font-medium text-sm truncate">{user.fullName}</span>
-              {/* Username (optional, remove if not needed) */}
-              {/* <span className="text-xs text-zinc-500 truncate">@{user.username}</span> */}
+              {/* Name (full name) right after profile pic, only on mobile */}
+              <span className="font-medium text-sm truncate lg:hidden">{user.fullName}</span>
               {/* User info - only visible on larger screens */}
               <div className="hidden lg:block text-left min-w-0">
                 <div className="font-medium truncate">{user.fullName}</div>

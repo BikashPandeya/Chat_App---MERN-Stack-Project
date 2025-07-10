@@ -5,19 +5,15 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { formatMessageTime } from "../lib/utils";
-import { useNavigate, Link } from "react-router-dom"; // Import useNavigate for navigation
-import { Pointer, X } from "lucide-react"; // Import the X icon for closing the image view
+import { useNavigate, Link } from "react-router-dom";
+import { Pointer, X } from "lucide-react";
 
 const ChatContainer = () => {
   const [showImage, setShowImage] = useState(false);
   const [showImageId, setShowImageId] = useState(null);
-  const handleClick = () => {
-    setShowImage(!showImage);
-  };
-  const handleImageClick = (id) => {
-    setShowImageId(showImageId === id ? null : id);
-  };
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const handleClick = () => setShowImage(!showImage);
+  const handleImageClick = (id) => setShowImageId(showImageId === id ? null : id);
+  const navigate = useNavigate();
   const {
     messages,
     getMessages,
@@ -28,22 +24,26 @@ const ChatContainer = () => {
   } = useChatStore();
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
+
   useEffect(() => {
     subscribeToMessages();
     getMessages(selectedUser._id);
 
-    return () => unsubscribeFromMessages(); // Unsubscribe from messages when component unmounts
+    return () => unsubscribeFromMessages();
   }, [selectedUser._id, getMessages]);
 
+  // Auto-scroll to bottom when messages change
   useEffect(() => {
-    if (messageEndRef.current && messages) {
-      messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Scroll only the messages container, not the page
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, selectedUser._id]);
 
   if (isMessageLoading)
     return (
-      <div className="flex-1 flex flex-col overflow-auto">
+      <div className="flex-1 flex flex-col">
         <ChatHeader />
         <MessageSkeleton />
         <MessageInput />
@@ -51,16 +51,18 @@ const ChatContainer = () => {
     );
 
   return (
-    <div className="flex-1 flex flex-col overflow-auto">
+    <div className="flex-1 flex flex-col">
       <ChatHeader />
-      <div className="flex-1 flex flex-col overflow-y-auto p-4">
-        {messages.map((message) => (
+      <div
+        className="flex-1 overflow-y-auto p-4"
+        ref={messagesContainerRef}
+      >
+        {messages.map((message, idx) => (
           <div
             key={message._id}
             className={`chat ${
               message.senderId == authUser._id ? "chat-end" : "chat-start"
-            } `}
-            ref={messageEndRef}
+            }`}
           >
             {authUser && (
               <div className="size-10 rounded-full border chat-image avatar">
@@ -75,8 +77,6 @@ const ChatContainer = () => {
                 />
               </div>
             )}
-            {/* <div className="chat-image avatar"onClick={navigate("/chattersprofile")} >
-            </div> */}
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
                 {formatMessageTime(message.createdAt)}
