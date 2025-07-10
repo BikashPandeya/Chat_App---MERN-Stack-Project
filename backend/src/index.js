@@ -9,9 +9,11 @@ import { app , server } from './lib/socket.js'
 
 
 import cors from 'cors'
+import path from "path"
 
 dotenv.config()
 const PORT = process.env.PORT
+const __dirname = path.resolve() // Get the current directory path
 
 app.use(express.json({ limit: "10mb"}))  //Without this middleware, req.body would be undefined for JSON requests.
 // The express.json() middleware in app.use() is used to parse incoming requests with JSON payloads. When you include this middleware in your Express application, it allows the server to automatically parse the JSON data in the body of incoming requests and make it available in req.body.
@@ -26,6 +28,12 @@ app.use(cors({
 app.use("/api/auth" , authRoutes)
 app.use("/api/messages" , messageRoutes)
 
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist"))) // Serve static files from the frontend build directory
+   app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend/dist/index.html")) // Serve the index.html file for all other routes
+    })
+}
 
 server.listen(PORT , () => {
     console.log("Server is running on PORT :" , PORT)

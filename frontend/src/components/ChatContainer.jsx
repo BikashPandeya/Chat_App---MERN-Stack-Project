@@ -7,7 +7,6 @@ import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { formatMessageTime } from "../lib/utils";
 import { useNavigate, Link } from "react-router-dom"; // Import useNavigate for navigation
 import { Pointer, X } from "lucide-react"; // Import the X icon for closing the image view
-import { Cursor } from "mongoose";
 
 const ChatContainer = () => {
   const [showImage, setShowImage] = useState(false);
