@@ -1,0 +1,21 @@
+{
+  "name": "chatty",
+  "version": "1.0.0",
+  "description": "A modern, full-stack real-time chat application for seamless conversations, built with the latest web technologies.",
+  "main": "index.js",
+  "scripts": {
+    "build":"",
+    "start":""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BikashPandeya/Chat_App---MERN-Stack-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BikashPandeya/Chat_App---MERN-Stack-Project/issues"
+  },
+  "homepage": "https://github.com/BikashPandeya/Chat_App---MERN-Stack-Project#readme"
+}
