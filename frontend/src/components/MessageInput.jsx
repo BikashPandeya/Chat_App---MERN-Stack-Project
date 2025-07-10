@@ -113,9 +113,9 @@ const MessageInput = () => {
 
           <button
             type="button"
-            tabIndex={-1} // Prevent button from being focused after click
-            className={`hidden sm:flex btn btn-circle
-           ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            tabIndex={-1}
+            className={`flex btn btn-circle
+    ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={20} />
