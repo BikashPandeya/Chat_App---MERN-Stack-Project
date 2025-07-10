@@ -66,7 +66,7 @@ const MessageInput = () => {
             {/* Loader centered over the image */}
             {imageSending && (
               <span className="absolute inset-0 flex items-center justify-center">
-                <span className="loading loading-spinner loading-lg text-primary" />
+                <span className="loading loading-spinner loading-lg text-primary shadow-purple-500" />
               </span>
             )}
             <img
