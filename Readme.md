@@ -135,6 +135,13 @@ Chatty/
 
 ---
 
+## 🌐 Live Demo
+
+Try the deployed app here:  
+**[https://chat-app-mern-stack-project.onrender.com/](https://chat-app-mern-stack-project.onrender.com/)**
+
+---
+
 ## 📸 Screenshots
 
 _Add screenshots of your app here!_
