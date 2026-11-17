@@ -4,6 +4,13 @@ A modern, full-stack real-time chat application for seamless conversations, buil
 
 ---
 
+## 🌐 Live Demo
+
+Try the deployed app here:  
+**[https://chat-app-mern-stack-project.onrender.com/](https://chat-app-mern-stack-project.onrender.com/)**
+
+---
+
 ## 🚀 Features
 
 - **Real-Time Messaging:** Instant chat powered by Socket.IO.
@@ -135,12 +142,7 @@ Chatty/
 
 ---
 
-## 🌐 Live Demo
 
-Try the deployed app here:  
-**[https://chat-app-mern-stack-project.onrender.com/](https://chat-app-mern-stack-project.onrender.com/)**
-
----
 
 ## 📸 Screenshots
 
